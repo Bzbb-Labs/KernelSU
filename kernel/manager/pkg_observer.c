@@ -21,7 +21,8 @@
  * reuses code from: https://github.com/tiann/KernelSU/blob/v1.0.5/kernel/core_hook.c#L188
  */
 
-#if defined(CONFIG_KSU_SUSFS_PRIORITY_UID_FILTER) || defined(CONFIG_KSU_SUSFS_SUS_PATH)
+#if defined(CONFIG_KSU_SUSFS_PRIORITY_UID_FILTER) || defined(CONFIG_KSU_SUSFS_SUS_PATH) || \
+	defined(CONFIG_KSU_SUSFS_SUS_PATH_UID_FILTER)
 #include <linux/susfs.h>
 #endif // shared uid filter headers
 
@@ -61,10 +62,10 @@ static noinline void ksu_rename_observer_slow(struct dentry *old_dentry, struct 
 	// Renew the priority uid bitmap filter
 	susfs_parse_priority_app_strings();
 #endif // #ifdef CONFIG_KSU_SUSFS_PRIORITY_UID_FILTER
-#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH_UID_FILTER
 	// Renew the sus path uid bitmap filter
 	susfs_parse_sus_path_app_strings();
-#endif // #ifdef CONFIG_KSU_SUSFS_SUS_PATH
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_PATH_UID_FILTER
 	return;
 }
 
@@ -118,10 +119,10 @@ static inline void ksu_rename_observer(struct dentry *old_dentry, struct dentry 
 	// Renew the priority uid bitmap filter
 	susfs_parse_priority_app_strings();
 #endif // #ifdef CONFIG_KSU_SUSFS_PRIORITY_UID_FILTER
-#ifdef CONFIG_KSU_SUSFS_SUS_PATH
+#ifdef CONFIG_KSU_SUSFS_SUS_PATH_UID_FILTER
 	// Renew the sus path uid bitmap filter
 	susfs_parse_sus_path_app_strings();
-#endif // #ifdef CONFIG_KSU_SUSFS_SUS_PATH
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_PATH_UID_FILTER
 	return;
 
 slow_path:

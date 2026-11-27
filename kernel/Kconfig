@@ -143,6 +143,16 @@ config KSU_SUSFS_SUS_PATH
         - Use with cautious as it may cause performance loss and will be vulnerable to side channel attacks,
           just disable this feature if it doesn't work for you or you don't need it at all.
 
+config KSU_SUSFS_SUS_PATH_UID_FILTER
+    bool "Enable sus_path uid filter (requires SUSFS with sus_path uid filter support)"
+    depends on KSU_SUSFS_SUS_PATH
+    default n
+    help
+        - Allow restricting sus_path visibility to a user-defined set of apps.
+        - Requires a SUSFS version that provides susfs_set_sus_path_uid_filter()
+          and susfs_parse_sus_path_app_strings(). Disable this if your SUSFS
+          does not implement the sus_path uid filter.
+
 config KSU_SUSFS_SUS_MOUNT
     bool "Enable to hide suspicious mounts"
     depends on KSU_SUSFS
